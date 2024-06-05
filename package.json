@@ -1,0 +1,85 @@
+{
+  
+  "name": "comapper",
+  
+  "version": "1.0.0",
+  
+  "description": "",
+  
+  "main": "index.js",
+  
+  "scripts": {
+  
+    
+  "start": "vite",
+  
+    
+  "test": "echo \"Error: no test specified\" && exit 1"
+  
+  },
+  
+  "keywords": [],
+  
+  "author": "",
+  
+  "license": "ISC",
+  
+  "dependencies": {
+  
+    
+  "bcrypt": "^5.1.1",
+  
+    
+  "canvas": "^2.11.2",
+  
+    
+  "datatable": "^2.0.2",
+  
+    
+  "ejs": "^3.1.10",
+  
+    
+  "express": "^4.19.2",
+  
+    
+  "express-session": "^1.18.0",
+  
+    
+  "html2canvas": "^1.4.1",
+  
+    
+  "jspdf": "^2.5.1",
+  
+    
+  "method-override": "^3.0.0",
+  
+    
+  "mongodb": "^6.5.0",
+  
+    
+  "mongoose": "^8.3.2",
+  
+    
+  "multer": "^1.4.5-lts.1",
+  
+    
+  "nodemon": "^3.1.0",
+  
+    
+  "pdfkit": "^0.15.0",
+  
+    
+  "tableexport": "^5.2.0",
+  
+    
+  "xlsx": "^0.18.5"
+  
+  },
+  
+  "devDependencies": {
+  
+    
+  "tailwindcss": "^3.4.3"
+  
+  }
+}
