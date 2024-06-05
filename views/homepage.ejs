@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .class-card {
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+        }
+
+        .class-card:hover {
+            transform: scale(1.02);
+            background-color: #f0f0f0;
+        }
+
+        .class-card h3 {
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .class-card p {
+            color: #666;
+            margin: 0;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, <%= professorName %>!</h2>
+        <p>Username: <%= userName %></p>
+        <form action="/addClass" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="professorUserName" value="<%= userName %>">
+            <input type="text" name="className" placeholder="Class Name" required>
+            <input type="file" name="excelFile" accept=".xlsx, .xls" required>
+            <button type="submit" class="btn-primary">Add Class</button>
+        </form>
+
+        <div class="cards-container">
+            <% classDetails.forEach(classDetail => { %>
+                <a href="/chooseEvents/<%= classDetail.className %>"> <!-- Assuming classDetail.className holds the class name -->
+                    <div class="class-card">
+                        <h3><%= classDetail.className %></h3>
+                        <p>Number of Students: <%= classDetail.numberOfStudents %></p>
+                        <form action="/deleteClass" method="POST" class="delete-class-form">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="className" value="<%= classDetail.className %>">
+                            <input type="hidden" name="professorUserName" value="<%= userName %>">
+                            <button type="submit" class="delete-btn">Delete Class</button>
+                        </form>
+                        
+                    </div>
+                </a>                
+            <% }); %>
+        </div>
+    </div>
+</body>
+    <script>
+        // Handle form submission via AJAX
+        $('.delete-class-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/deleteClass',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        location.reload(); // Reload the page upon success
+                    } else {
+                        alert('Failed to delete class');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while deleting the class');
+                }
+            });
+        });
+    </script>
+</html>

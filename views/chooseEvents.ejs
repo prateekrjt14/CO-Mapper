@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Events</title>
+    <link rel="stylesheet" href="/styles/chooseEvents.css"> <!-- Include your CSS file -->
+    <style>
+        .option-card {
+            cursor: pointer;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #f3f3f3;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .option-card:hover {
+            background-color: #30efe8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Welcome, <%= professorName %>!</h2>
+        <p>Username: <%= userName %></p>
+        <p>Class: <%= className %></p>
+    </div>
+
+    <div class="options-container">
+        <div class="option-card" onclick="document.getElementById('event1Form').submit();">
+            <h3>Event 1</h3>
+            <form id="event1Form" action="/event1" method="GET">
+                <input type="hidden" name="userName" value="<%= userName %>">
+                <input type="hidden" name="className" value="<%= className %>">
+                <input type="hidden" name="professorName" value="<%= professorName %>">
+            </form>
+        </div>
+        <div class="option-card" onclick="document.getElementById('event2Form').submit();">
+            <h3>Event 2</h3>
+            <form id="event2Form" action="/event2" method="GET">
+                <input type="hidden" name="userName" value="<%= userName %>">
+                <input type="hidden" name="className" value="<%= className %>">
+                <input type="hidden" name="professorName" value="<%= professorName %>">
+            </form>
+        </div>
+        <div class="option-card" onclick="document.getElementById('event3Form').submit();">
+            <h3>Event 3</h3>
+            <form id="event3Form" action="/event3" method="GET">
+                <input type="hidden" name="userName" value="<%= userName %>">
+                <input type="hidden" name="className" value="<%= className %>">
+                <input type="hidden" name="professorName" value="<%= professorName %>">
+            </form>
+        </div>
+        <div class="option-card" onclick="document.getElementById('event4Form').submit();">
+            <h3>Event 4</h3>
+            <form id="event4Form" action="/event4" method="GET">
+                <input type="hidden" name="userName" value="<%= userName %>">
+                <input type="hidden" name="className" value="<%= className %>">
+                <input type="hidden" name="professorName" value="<%= professorName %>">
+            </form>
+        </div>
+        <div class="option-card" onclick="document.getElementById('event5Form').submit();">
+            <h3>Event 5</h3>
+            <form id="event5Form" action="/event5" method="GET">
+                <input type="hidden" name="userName" value="<%= userName %>">
+                <input type="hidden" name="className" value="<%= className %>">
+                <input type="hidden" name="professorName" value="<%= professorName %>">
+            </form>
+        </div>
+        <div class="option-card" onclick="document.getElementById('finalListForm').submit();">
+            <h3>Final List</h3>
+            <form id="finalListForm" action="/finalList" method="GET">
+                <input type="hidden" name="userName" value="<%= userName %>">
+                <input type="hidden" name="className" value="<%= className %>">
+                <input type="hidden" name="professorName" value="<%= professorName %>">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

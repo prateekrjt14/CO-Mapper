@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event 2</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .header {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            margin: 20px;
+        }
+        .add-question, .mapped-questions {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .add-question h3, .mapped-questions h3 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .table thead th {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+        .btn-student-submit {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .btn-student-submit:hover {
+            background-color: #218838;
+        }
+        .btn-main-submit {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+        .btn-main-submit:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Welcome, <%= professorName %>!</h2>
+        <p>Username: <%= userName %></p>
+        <p>Class: <%= className %></p>
+    </div>
+
+    <div class="content">
+        <!-- Add Question Form -->
+        <div class="add-question">
+            <h3>Add Question</h3>
+            <form id="addQuestionForm" class="form-inline">
+                <fieldset>
+                    <legend>Question Details</legend>
+                    <div class="form-group mr-2 mb-2">
+                        <label for="questionNumber" class="mr-2">Question Number :</label>
+                        <input type="text" name="question" id="questionNumber" class="form-control" value="<%= mappedQuestionsInfo.length+1 %>" placeholder="Enter Question" required>
+                    </div>
+                    <div class="form-group mr-2 mb-2">
+                        <label for="maxMarks" class="mr-2">Max Marks :</label>
+                        <input type="text" name="maxmarks" id="maxMarks" class="form-control" value="0" placeholder="Enter Max Marks" required>
+                    </div>
+                    <div class="form-group mr-2 mb-2">
+                        <label for="coMapped" class="mr-2">CO Mapped :</label>
+                        <select name="co" id="coMapped" class="form-control" required>
+                            <option value="" disabled selected>Select CO (Course Outcome)</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Add Question</button>
+                </fieldset>
+            </form>
+        </div>
+        
+
+        <!-- Already Mapped Questions -->
+        <div class="mapped-questions">
+            <h3>Already Mapped Questions</h3>
+            <ul class="list-group">
+                <% if (mappedQuestionsInfo.length === 0) { %>
+                    <li class="list-group-item">No questions mapped yet</li>
+                <% } else { %>
+                    <% mappedQuestionsInfo.forEach(question => { %>
+                        <li class="list-group-item"><b>Question :</b> <i><%= question.questionNumber %></i> | <b>CO :</b> <i><%= question.coMapped %></i> | <b>Max marks :</b> <i><%= question.maxMarks %></i></li>
+                    <% }); %>
+                <% } %>
+            </ul>
+        </div>
+        
+        <div class="mapped-questions">
+            <h3>Marks</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Roll No</th>
+                        <th>USN</th>
+                        <!-- Additional headers for each question -->
+                        <% mappedQuestions[0].mappedQuestions.forEach(question => { %>
+                            <th>Question <%= question.questionNumber %></th>
+                        <% }); %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% mappedQuestions.forEach(student => { %>
+                        <tr>
+                            <td><%= student.studentName %></td>
+                            <td><%= student.rollNo %></td>
+                            <td><%= student.usn %></td>
+                            <!-- Display marks obtained for each question -->
+                            <% student.mappedQuestions.forEach(question => { %>
+                                <td>
+                                    <form id="marksForm_<%= student.studentId %>_<%= question.questionNumber %>" onsubmit="event.preventDefault(); submitForm('<%= student.studentId %>', '<%= question.questionNumber %>')">
+                                        <input type="hidden" name="studentId" value="<%= student.studentId %>">
+                                        <input type="hidden" name="questionNumber" value="<%= question.questionNumber %>">
+                                        <input type="hidden" id="maxMarks_<%= student.studentId %>_<%= question.questionNumber %>" value="<%= question.maxMarks %>">
+                                        <input type="number" id="marks_<%= student.studentId %>_<%= question.questionNumber %>" class="form-control" value="<%= question.marksObtained %>" min="0" max="<%= question.maxMarks %>">
+                                        <button type="submit" class="btn-submit" style="display:none;">Add</button>
+                                    </form>                                    
+                                </td>                                                                                                
+                            <% }); %>
+                            <td>
+                                <button class="btn-student-submit" style="display:none;" onclick="submitAllFormsForStudent('<%= student.studentId %>')">Submit All</button>
+                            </td>
+                        </tr>
+                    <% }); %>                    
+                </tbody>
+            </table>
+            <!-- Main Submit Button at the end of the student list -->
+            <button class="btn-main-submit" onclick="submitAllStudentsForms()">Submit Marks</button>
+        </div>
+    </div>
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Function to handle form submission via AJAX
+        function submitForm(studentId, questionNumber) {
+            // Get form data
+            const marksInput = document.getElementById(`marks_${studentId}_${questionNumber}`);
+            const maxMarksInput = document.getElementById(`maxMarks_${studentId}_${questionNumber}`);
+            const enteredMarks = parseInt(marksInput.value, 10);
+            const maxMarks = parseInt(maxMarksInput.value, 10);
+
+            // Check if entered marks exceed max marks
+            if (enteredMarks > maxMarks) {
+                alert(`Entered marks (${enteredMarks}) cannot exceed maximum marks (${maxMarks}) for question ${questionNumber}`);
+                return;
+            }
+
+            const formData = {
+                studentId: studentId,
+                questionNumber: questionNumber,
+                marks: enteredMarks // Get marks value
+            };
+
+            // Send form data via AJAX
+            fetch('/event2/addMarks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update marks');
+                }
+
+                console.log('Marks updated successfully for student ' + studentId + ' question ' + questionNumber);
+            })
+            .catch(error => {
+                console.error('Error updating marks:', error);
+            });
+        }
+
+        // Function to submit all forms for a student
+        function submitAllFormsForStudent(studentId) {
+            // Get all forms for the student
+            const forms = document.querySelectorAll(`form[id^="marksForm_${studentId}_"]`);
+            forms.forEach(form => {
+                const questionNumber = form.querySelector('input[name="questionNumber"]').value;
+                submitForm(studentId, questionNumber);
+            });
+        }
+
+        // Function to click all hidden student submit buttons
+        function submitAllStudentsForms() {
+            // Get all hidden student submit buttons
+            const buttons = document.querySelectorAll('.btn-student-submit');
+            buttons.forEach(button => button.click());
+
+            alert('Marks have been updated successfully!');
+        }
+    </script>
+
+    <script>
+        // Handle form submission via AJAX
+        $('#addQuestionForm').on('submit', function(e) {
+            e.preventDefault();
+
+            // Capture the form data
+            var questionNumber = $('#questionNumber').val();
+            var maxMarks = $('#maxMarks').val();
+            var coMapped = $('#coMapped').val();
+
+            // Display the alert message
+            var confirmationMessage = 'Add Question: ' + questionNumber + ', Max Marks: ' + maxMarks + ', CO Mapped: ' + coMapped;
+            var userConfirmed = confirm(confirmationMessage);
+
+            if (userConfirmed) {
+                // If the user confirms, proceed with the AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: '/event2/addQuestion',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            location.reload(); // Reload the page upon success
+                        } else {
+                            alert('Failed to add question');
+                        }
+                    },
+                    error: function() {
+                        alert('An error occurred while adding the question');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

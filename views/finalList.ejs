@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+    <title>Final List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 1px solid #000000;
+        }
+        th, td {
+            border: 1px solid #000000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: rgb(180, 180, 180);
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .transparent-red {
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+        .sub-heading {
+            background-color: #e0e0e0;
+        }
+
+    </style>
+
+    <!-- Load jQuery first -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Load DataTables and extensions -->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
+</head>
+<body>
+    <div class="header">
+        <h2>Name: <%= professorName %></h2>
+        <p>Class: <%= className %></p>
+    </div>
+
+    <div class="container">
+        <h3><center>Final List</center></h3>
+        <table id="studentTable" class="display nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>USN</th>
+                    <th>CO1 Marks</th>
+                    <th>CO1 Total</th>
+                    <th>CO1 %</th>
+                    <th>CO2 Marks</th>
+                    <th>CO2 Total</th>
+                    <th>CO2 %</th>
+                    <th>CO3 Marks</th>
+                    <th>CO3 Total</th>
+                    <th>CO3 %</th>
+                    <th>CO4 Marks</th>
+                    <th>CO4 Total</th>
+                    <th>CO4 %</th>
+                    <th>CO5 Marks</th>
+                    <th>CO5 Total</th>
+                    <th>CO5 %</th>
+                    <th>Final Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% finalList.forEach(student => { %>
+                    <tr <% if(student.finalScore < 33) { %> class="transparent-red" <% } %>>
+                        <td><%= student.rollNo %></td>
+                        <td><%= student.studentName %></td>
+                        <td><%= student.usn %></td>
+                        <td><%= student.co1 %></td>
+                        <td><%= student.maxco1 %></td>
+                        <td><%= student.co1Percentage %></td>
+                        <td><%= student.co2 %></td>
+                        <td><%= student.maxco2 %></td>
+                        <td><%= student.co2Percentage %></td>
+                        <td><%= student.co3 %></td>
+                        <td><%= student.maxco3 %></td>
+                        <td><%= student.co3Percentage %></td>
+                        <td><%= student.co4 %></td>
+                        <td><%= student.maxco4 %></td>
+                        <td><%= student.co4Percentage %></td>
+                        <td><%= student.co5 %></td>
+                        <td><%= student.maxco5 %></td>
+                        <td><%= student.co5Percentage %></td>
+                        <td><%= student.finalScore %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#studentTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel'
+                ]
+            });
+        });
+    </script>
+    
+</body>
+</html>
