@@ -113,15 +113,28 @@
         <!-- Already Mapped Questions -->
         <div class="mapped-questions">
             <h3>Already Mapped Questions</h3>
-            <ul class="list-group">
-                <% if (mappedQuestionsInfo.length === 0) { %>
-                    <li class="list-group-item">No questions mapped yet</li>
-                <% } else { %>
-                    <% mappedQuestionsInfo.forEach(question => { %>
-                        <b class="list-group-item"><b>Question :</b> <i><%= question.questionNumber %></i> | <b>CO :</b> <i><%= question.coMapped %></i> | <b>Max marks :</b> <i><%= question.maxMarks %></i></li>
-                    <% }); %>
-                <% } %>
-            </ul>
+            <% if (mappedQuestionsInfo.length === 0) { %>
+                <p>No questions mapped yet</p>
+            <% } else { %>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Question Number</th>
+                            <th>CO Mapped</th>
+                            <th>Max Marks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% mappedQuestionsInfo.forEach(question => { %>
+                            <tr>
+                                <td><%= question.questionNumber %></td>
+                                <td><%= question.coMapped %></td>
+                                <td><%= question.maxMarks %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } %>
         </div>
         
         <div class="mapped-questions">
