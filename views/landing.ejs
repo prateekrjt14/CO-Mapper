@@ -7,27 +7,50 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #fff;
+            flex-direction: column;
+        }
+
+        .marquee-container {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b, #f06595);
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 5px solid #343a40;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        marquee {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .container {
             max-width: 400px;
             padding: 40px;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
             text-align: center;
+            margin-top: 20px;
         }
 
         h1 {
             color: #343a40;
             margin-bottom: 30px;
+            font-size: 28px;
         }
 
         .btn {
@@ -40,16 +63,19 @@
             text-decoration: none;
             border: none;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 16px;
         }
 
         .btn:hover {
             background-color: #0056b3;
+            transform: translateY(-3px);
         }
 
     </style>
 </head>
 <body>
+    <h1><marquee behavior="scroll" direction="left">JSS Science and Technology University (SJCE) Mysore,Karnataka</marquee></h1>
     <div class="container">
         <h1>Welcome to CO Mapper</h1>
         <a href="/login" class="btn">Login</a>
