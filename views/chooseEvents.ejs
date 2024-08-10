@@ -4,19 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Events</title>
-    <link rel="stylesheet" href="/styles/chooseEvents.css"> <!-- Include your CSS file -->
+    <link rel="stylesheet" href="/styles/chooseEvents.css"> <!-- Include your CSS file if needed -->
     <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .header h2 {
+            color: #007bff;
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        /* Options Container */
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            width: 80%;
+            max-width: 800px;
+            margin-top: 30px;
+        }
+
+        /* Individual Option Card */
         .option-card {
             cursor: pointer;
             padding: 20px;
             margin: 10px;
-            border: 1px solid #f3f3f3;
-            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #f0f0f0;
+            border-radius: 10px;
             text-align: center;
-            transition: background-color 0.3s;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .option-card:hover {
-            background-color: #30efe8;
+            background-color: #00c9b7;
+            transform: translateY(-5px);
+        }
+
+        .option-card h3 {
+            font-size: 22px;
+            color: #007bff;
+            margin: 0;
         }
     </style>
 </head>
