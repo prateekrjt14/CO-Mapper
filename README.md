@@ -1,4 +1,4 @@
-![Screenshot 2024-08-10 225726](https://github.com/user-attachments/assets/660dc794-b58c-4d70-ae70-7f1ac1f79ac4)# CO Mapper
+# CO Mapper
 
 ## Overview
 
